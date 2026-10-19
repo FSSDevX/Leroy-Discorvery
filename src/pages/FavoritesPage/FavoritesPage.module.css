@@ -1,0 +1,40 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0A3323;
+  margin: 0;
+}
+
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f9f9f6;
+  border: 1px dashed #E0DBB0;
+  border-radius: 16px;
+  color: #555555;
+}
+
+.emptyState p {
+  margin-bottom: 16px;
+  font-size: 1rem;
+}

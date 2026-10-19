@@ -6,4 +6,9 @@ body {
   margin: 0;
   background-color: #f7f4d5;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }

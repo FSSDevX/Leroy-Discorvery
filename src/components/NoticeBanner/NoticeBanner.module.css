@@ -1,0 +1,29 @@
+.alertBadge {
+  width: 103px;
+  height: 19px;
+  gap: 4px;
+  opacity: 1;
+  border-radius: 8px;
+  padding: 2px 8px 2px 6px;
+  background: #F7E4E0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.alertText {
+  width: 73px;
+  height: 15px;
+  opacity: 1;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #7A3A31;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}

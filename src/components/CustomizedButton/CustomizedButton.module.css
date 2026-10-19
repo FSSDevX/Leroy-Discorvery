@@ -1,0 +1,67 @@
+.botao{
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 51px;
+  box-sizing: border-box;
+}
+
+/* Tamanhos existentes */
+.pequeno {
+  width: 164px;
+  font-size: 14px;
+}
+
+.grande {
+  width: 340px;
+  font-size: 16px;
+}
+
+/* Variantes de Cores */
+.verde {
+  background-color: #0A3323;
+  color: #ffffff;
+  border: none;
+}
+
+.verde:hover {
+  opacity: 0.9;
+}
+
+.branco {
+  background-color: #ffffff;
+  color: #0A3323;
+  border: 1px solid #0A3323;
+}
+
+.branco:hover {
+  background-color: #f3f4f6;
+}
+
+/* Texto Clicável */
+.texto {
+  background-color: transparent;
+  color: #105666;
+  border: none;
+  
+
+
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 140%;
+  
+ 
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.texto:hover {
+  text-decoration: nome;
+  opacity: 0.8;
+}

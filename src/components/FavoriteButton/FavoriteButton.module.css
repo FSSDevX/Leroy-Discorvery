@@ -1,0 +1,21 @@
+/* FavoriteButton.module.css */
+
+.favoriteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 20px;
+  border: 1px solid #E0DBB0;
+  padding: 10px;
+  opacity: 1;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.2s ease;
+}
+
+.favoriteButton:hover {
+  background-color: #f3f4f6; /* Efeito hover nativo via CSS */
+}
