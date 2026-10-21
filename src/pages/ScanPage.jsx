@@ -10,9 +10,10 @@ export default function ScanPage() {
 
   const handleStartScan = () => {
     setCurrentScreen('analyzing');
+    // Após 3 segundos de análise, redireciona para a tela de resultados/curadoria
     setTimeout(() => {
-      // Podes trocar para 'error' se quiseres testar o ecrã de falha
-    }, 5000);
+      navigate('/results');
+    }, 3000);
   };
 
   const handleOpenGallery = () => {
@@ -79,7 +80,6 @@ export default function ScanPage() {
                 overflow: 'hidden',
                 boxShadow: 'inset 0 0 10px rgba(0,0,0,0.2)'
               }}>
-                {/* Imagem de Fundo simulando a parede/cômodo */}
                 <div 
                   style={{
                     position: 'absolute',
@@ -91,7 +91,6 @@ export default function ScanPage() {
                   }}
                 />
                 
-                {/* Mira Pontilhada da Câmara */}
                 <div style={{
                   position: 'absolute',
                   inset: '20px',
@@ -229,48 +228,6 @@ export default function ScanPage() {
                 variante="branco" 
                 onClick={() => setCurrentScreen('scanner')} 
               />
-            </>
-          )}
-
-          {/* ESTADO 3: ERRO / ALERTA */}
-          {currentScreen === 'error' && (
-            <>
-              <div style={{
-                width: '100%',
-                height: '380px',
-                backgroundColor: '#5C6E61',
-                borderRadius: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff'
-              }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold', marginBottom: '12px' }}>!</div>
-                <p style={{ fontSize: '13px' }}>Não conseguimos ler o ambiente</p>
-              </div>
-
-              <div style={{ backgroundColor: '#FFEBEE', border: '1px solid #EF9A9A', borderRadius: '12px', padding: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '18px' }}>⚠️</span>
-                <p style={{ fontSize: '11px', color: '#B71C1C', margin: 0, lineHeight: '1.4' }}>
-                  Pouca luz. Acenda a luz do ambiente e tente de novo.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
-                <BotaoCustomizado 
-                  texto="🔄 Tentar de novo" 
-                  tamanho="grande" 
-                  variante="verde" 
-                  onClick={() => setCurrentScreen('scanner')} 
-                />
-                <BotaoCustomizado 
-                  texto="Escolher da galeria" 
-                  tamanho="grande" 
-                  variante="texto" 
-                  onClick={handleOpenGallery} 
-                />
-              </div>
             </>
           )}
 

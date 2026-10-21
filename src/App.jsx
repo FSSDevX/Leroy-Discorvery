@@ -7,7 +7,8 @@ import ProductCard from './components/ProductCard/ProductCard';
 import FavoriteButton from './components/FavoriteButton/FavoriteButton';
 import BackButton from './components/BackButton/BackButton';
 import CustomizedButton from './components/CustomizedButton/CustomizedButton';
-import ScanPage from './pages/ScanPage'; // O teu fluxo de escaneamento
+import ScanPage from './pages/ScanPage';
+import ResultPage from './pages/ResultPage'; // Importação corrigida para ResultPage
 
 // Componente da Página Principal (Catálogo + Demonstração)
 function CatalogPage() {
@@ -60,7 +61,6 @@ function CatalogPage() {
         <h1 style={{ color: '#0A3323', margin: 0, fontSize: '1.8rem' }}>Catálogo</h1>
         
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          {/* Botão de Atalho para o Fluxo de Escaneamento */}
           <Link 
             to="/scan" 
             style={{ padding: '8px 14px', backgroundColor: '#0A3323', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '500' }}
@@ -74,7 +74,7 @@ function CatalogPage() {
         </div>
       </div>
 
-      {/* Seção de Listagem de Produtos (ProductCard + NoticeBanner) */}
+      {/* Seção de Listagem de Produtos */}
       <section>
         <h2 style={{ fontSize: '1.2rem', color: '#0A3323', marginBottom: '16px' }}>Produtos Disponíveis</h2>
         {produtosComPreco.map((prod) => {
@@ -93,7 +93,7 @@ function CatalogPage() {
         })}
       </section>
 
-      {/* Seção Demonstrativa de Todos os Componentes de Apoio */}
+      {/* Seção Demonstrativa de Componentes */}
       <section style={{ borderTop: '1px solid #E0DBB0', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <h2 style={{ fontSize: '1.2rem', color: '#0A3323', margin: 0 }}>Componentes e Variações</h2>
         
@@ -150,11 +150,9 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Rota principal contendo o Catálogo e os Favoritos */}
         <Route path="/" element={<CatalogPage />} />
-
-        {/* Rota dedicada ao fluxo de escaneamento de ambiente */}
         <Route path="/scan" element={<ScanPage />} />
+        <Route path="/results" element={<ResultPage />} />
       </Routes>
     </Router>
   );
