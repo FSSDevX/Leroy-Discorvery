@@ -1,55 +1,54 @@
-// src/components/ProductCard/ProductCard.jsx
+import React from 'react';
 import { Heart } from 'lucide-react';
 import NoticeBanner from '../NoticeBanner/NoticeBanner';
 import styles from './ProductCard.module.css';
 
-export function ProductCard({ 
+export default function ProductCard({ 
   produto, 
   preco, 
-  textoAlerta = 'Sem estoque', 
-  mostrarAlerta = true, 
+  mostrarAlerta, 
+  textoAlerta, 
   isFavorito, 
   onToggleFavorito 
 }) {
-  const precoFormatado = Number(preco || 0).toFixed(2).replace('.', ',');
-
   return (
     <div className={styles.card}>
-      {/* Lado esquerdo: Imagem e Informações */}
+      
+      {/* Container com a imagem e os detalhes do produto */}
       <div className={styles.infoContainer}>
         <img 
-          src={produto.imagem} 
+          src={produto.imagem || 'https://via.placeholder.com/80'} 
           alt={produto.nome} 
-          className={styles.imagem}
+          className={styles.imagem} 
         />
+        
         <div className={styles.detalhes}>
-          <h4 className={styles.titulo}>
-            {produto.nome}
-          </h4>
-          <span className={styles.preco}>
-            R$ {precoFormatado}
-          </span>
+          <h3 className={styles.titulo}>{produto.nome}</h3>
           
-          {/* NoticeBanner puxado para baixo do preço */}
-          {mostrarAlerta && (
-            <NoticeBanner texto={textoAlerta} />
-          )}
+          <span className={styles.preco}>
+            R$ {typeof preco === 'number' ? preco.toFixed(2) : preco}
+          </span>
+
+          {/* Exibe o NoticeBanner caso o produto esteja sem estoque */}
+          {mostrarAlerta && <NoticeBanner texto={textoAlerta} />}
         </div>
       </div>
 
-      {/* Lado direito: Coração de favorito */}
+      {/* Botão de Favoritar */}
       <button 
-        onClick={onToggleFavorito} 
-        className={styles.favoriteButton}
+        className={styles.favoriteButton} 
+        onClick={onToggleFavorito}
+        type="button"
         aria-label="Favoritar produto"
       >
         <Heart 
-          size={24} 
+          size={20} 
           className={`${styles.heartIcon} ${isFavorito ? styles.favorito : ''}`}
+          fill={isFavorito ? '#e63946' : 'none'} 
+          strokeWidth={2.5} 
         />
       </button>
+
     </div>
   );
 }
-
-export default ProductCard;

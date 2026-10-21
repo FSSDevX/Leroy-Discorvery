@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { produtos } from './data/produtos';
 import { catalogo } from './data/catalogo';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
@@ -6,8 +7,10 @@ import ProductCard from './components/ProductCard/ProductCard';
 import FavoriteButton from './components/FavoriteButton/FavoriteButton';
 import BackButton from './components/BackButton/BackButton';
 import CustomizedButton from './components/CustomizedButton/CustomizedButton';
+import ScanPage from './pages/ScanPage'; // O teu fluxo de escaneamento
 
-function App() {
+// Componente da Página Principal (Catálogo + Demonstração)
+function CatalogPage() {
   const [paginaAtual, setPaginaAtual] = useState('home');
   const [idsFavoritos, setIdsFavoritos] = useState([]);
 
@@ -52,13 +55,23 @@ function App() {
   return (
     <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px', fontFamily: 'Poppins, sans-serif' }}>
       
-      {/* Cabeçalho com o FavoriteButton de atalho */}
+      {/* Cabeçalho com o FavoriteButton de atalho e o botão para a Página de Scan */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ color: '#0A3323', margin: 0, fontSize: '1.8rem' }}>Catálogo</h1>
         
-        <FavoriteButton 
-          onClick={() => setPaginaAtual('favoritos')} 
-        />
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          {/* Botão de Atalho para o Fluxo de Escaneamento */}
+          <Link 
+            to="/scan" 
+            style={{ padding: '8px 14px', backgroundColor: '#0A3323', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: '500' }}
+          >
+            📸 Escanear Sala
+          </Link>
+
+          <FavoriteButton 
+            onClick={() => setPaginaAtual('favoritos')} 
+          />
+        </div>
       </div>
 
       {/* Seção de Listagem de Produtos (ProductCard + NoticeBanner) */}
@@ -72,7 +85,7 @@ function App() {
               produto={prod} 
               preco={prod.preco} 
               textoAlerta="Sem estoque"
-              mostrarAlerta={prod.semEstoque} // Exibe o NoticeBanner/Badge se o estoque for 0
+              mostrarAlerta={prod.semEstoque} 
               isFavorito={isFavorito}
               onToggleFavorito={() => handleToggleFavorito(prod.id)}
             />
@@ -84,13 +97,11 @@ function App() {
       <section style={{ borderTop: '1px solid #E0DBB0', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <h2 style={{ fontSize: '1.2rem', color: '#0A3323', margin: 0 }}>Componentes e Variações</h2>
         
-        {/* BackButton */}
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           <BackButton onClick={() => alert('BackButton clicado!')} />
           <span style={{ fontSize: '0.9rem', color: '#555' }}>Componente BackButton</span>
         </div>
 
-        {/* Vitrine completa do CustomizedButton (Pequeno, Grande, Verde, Branco e Texto) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
           <h3 style={{ fontSize: '1rem', color: '#0A3323', margin: '0 0 4px 0' }}>Variações do CustomizedButton:</h3>
 
@@ -134,4 +145,17 @@ function App() {
   );
 }
 
-export default App;
+// Configuração Principal com o Router
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Rota principal contendo o Catálogo e os Favoritos */}
+        <Route path="/" element={<CatalogPage />} />
+
+        {/* Rota dedicada ao fluxo de escaneamento de ambiente */}
+        <Route path="/scan" element={<ScanPage />} />
+      </Routes>
+    </Router>
+  );
+}
