@@ -4,7 +4,7 @@ import BackButton from '../components/BackButton/BackButton';
 import ProductCard from '../components/ProductCard/ProductCard';
 import BotaoCustomizado from '../components/CustomizedButton/CustomizedButton';
 
-// 1. Importa as tuas imagens da pasta assets (ajusta o caminho se estiverem noutra pasta)
+// Importando as imagens locais
 import estanteImg from '../assets/estantetomneutro.png';
 import quadroImg from '../assets/quadrosneutros.png';
 
@@ -15,28 +15,27 @@ export default function ResultPage() {
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [favoritos, setFavoritos] = useState({});
 
-  // 2. Associa as imagens importadas aos produtos recomendados
   const produtosRecomendados = [
     {
-      id: 1,
+      id: 1, // ID 1: Prateleira (Estoque baixo)
       nome: 'Prateleira industrial preta',
       preco: 349.00,
       match: '96% combina',
-      imagem: estanteImg // 👈 Usa a imagem da estante que adicionaste
+      imagem: estanteImg
     },
     {
-      id: 2,
+      id: 2, // ID 2: Luminária (Indisponível)
       nome: 'Luminária pendente de metal',
       preco: 189.00,
       match: '91% combina',
       imagem: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=200&q=80'
     },
     {
-      id: 3,
+      id: 3, // ID 3: Quadro (Disponível)
       nome: 'Quadro em tons neutros',
       preco: 129.00,
       match: '88% combina',
-      imagem: quadroImg // 👈 Usa a imagem do quadro que adicionaste
+      imagem: quadroImg
     }
   ];
 
@@ -138,14 +137,22 @@ export default function ResultPage() {
               ⚡ Baseado em visão computacional
             </div>
 
+            {/* Lista de produtos: ao clicar no card, passa o ID do produto para a página de disponibilidade */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
               {produtosRecomendados.map(prod => (
-                <div key={prod.id} style={{ position: 'relative' }}>
+                <div 
+                  key={prod.id} 
+                  style={{ position: 'relative', cursor: 'pointer' }}
+                  onClick={() => navigate('/availability', { state: { produtoId: prod.id } })}
+                >
                   <ProductCard 
                     produto={prod}
                     preco={prod.preco}
                     isFavorito={!!favoritos[prod.id]}
-                    onToggleFavorito={() => toggleFavorito(prod.id)}
+                    onToggleFavorito={(e) => {
+                      e.stopPropagation(); // Evita abrir a disponibilidade ao clicar no botão de favorito
+                      toggleFavorito(prod.id);
+                    }}
                   />
                   <span style={{
                     position: 'absolute',
@@ -157,7 +164,8 @@ export default function ResultPage() {
                     fontWeight: '700',
                     padding: '2px 6px',
                     borderRadius: '8px',
-                    zIndex: 2
+                    zIndex: 2,
+                    pointerEvents: 'none'
                   }}>
                     ⚡ {prod.match}
                   </span>

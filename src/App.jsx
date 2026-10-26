@@ -8,7 +8,8 @@ import FavoriteButton from './components/FavoriteButton/FavoriteButton';
 import BackButton from './components/BackButton/BackButton';
 import CustomizedButton from './components/CustomizedButton/CustomizedButton';
 import ScanPage from './pages/ScanPage';
-import ResultPage from './pages/ResultPage'; // Importação corrigida para ResultPage
+import ResultPage from './pages/ResultPage';
+import StoreAvailabilityPage from './pages/StoreAvailabilityPage'; // 👈 Importa a nova página de disponibilidade
 
 // Componente da Página Principal (Catálogo + Demonstração)
 function CatalogPage() {
@@ -153,6 +154,7 @@ export default function App() {
         <Route path="/" element={<CatalogPage />} />
         <Route path="/scan" element={<ScanPage />} />
         <Route path="/results" element={<ResultPage />} />
+        <Route path="/availability" element={<StoreAvailabilityPage />} /> {/* 👈 Rota para o fluxo de disponibilidade */}
       </Routes>
     </Router>
   );
