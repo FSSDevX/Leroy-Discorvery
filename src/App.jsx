@@ -7,16 +7,18 @@ import ProductCard from './components/ProductCard/ProductCard';
 import FavoriteButton from './components/FavoriteButton/FavoriteButton';
 import BackButton from './components/BackButton/BackButton';
 import CustomizedButton from './components/CustomizedButton/CustomizedButton';
+import HomePage from './pages/HomePage';
 import ScanPage from './pages/ScanPage';
 import ResultPage from './pages/ResultPage';
-import StoreAvailabilityPage from './pages/StoreAvailabilityPage'; // 👈 Importa a nova página de disponibilidade
+import StoreAvailabilityPage from './pages/StoreAvailabilityPage';
+import StoreMapPage from './pages/StoreMapPage';
+import CheckoutPage from './pages/CheckoutPage'; // 👈 Importa a página de Checkout (H1 a H4)
 
-// Componente da Página Principal (Catálogo + Demonstração)
+// Componente da Página do Catálogo
 function CatalogPage() {
   const [paginaAtual, setPaginaAtual] = useState('home');
   const [idsFavoritos, setIdsFavoritos] = useState([]);
 
-  // Função para favoritar ou desfavoritar um produto
   const handleToggleFavorito = (produtoId) => {
     if (idsFavoritos.includes(produtoId)) {
       setIdsFavoritos(idsFavoritos.filter(id => id !== produtoId));
@@ -25,7 +27,6 @@ function CatalogPage() {
     }
   };
 
-  // Cruza os dados de produtos.js com catalogo.js para pegar preço e estoque reais
   const produtosComPreco = produtos.map((prod) => {
     const itemCatalogo = catalogo.find(item => item.produtoId === prod.id);
     const preco = itemCatalogo ? itemCatalogo.preco : 0;
@@ -39,10 +40,8 @@ function CatalogPage() {
     };
   });
 
-  // Filtra a lista para a página de favoritos
   const produtosFavoritados = produtosComPreco.filter(prod => idsFavoritos.includes(prod.id));
 
-  // Renderização condicional: Página de Favoritos
   if (paginaAtual === 'favoritos') {
     return (
       <FavoritesPage 
@@ -53,11 +52,9 @@ function CatalogPage() {
     );
   }
 
-  // Renderização principal: Home / Catálogo
   return (
     <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px', fontFamily: 'Poppins, sans-serif' }}>
       
-      {/* Cabeçalho com o FavoriteButton de atalho e o botão para a Página de Scan */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ color: '#0A3323', margin: 0, fontSize: '1.8rem' }}>Catálogo</h1>
         
@@ -75,7 +72,6 @@ function CatalogPage() {
         </div>
       </div>
 
-      {/* Seção de Listagem de Produtos */}
       <section>
         <h2 style={{ fontSize: '1.2rem', color: '#0A3323', marginBottom: '16px' }}>Produtos Disponíveis</h2>
         {produtosComPreco.map((prod) => {
@@ -94,54 +90,6 @@ function CatalogPage() {
         })}
       </section>
 
-      {/* Seção Demonstrativa de Componentes */}
-      <section style={{ borderTop: '1px solid #E0DBB0', paddingTop: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        <h2 style={{ fontSize: '1.2rem', color: '#0A3323', margin: 0 }}>Componentes e Variações</h2>
-        
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <BackButton onClick={() => alert('BackButton clicado!')} />
-          <span style={{ fontSize: '0.9rem', color: '#555' }}>Componente BackButton</span>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-          <h3 style={{ fontSize: '1rem', color: '#0A3323', margin: '0 0 4px 0' }}>Variações do CustomizedButton:</h3>
-
-          <CustomizedButton 
-            texto="Pequeno Verde" 
-            tamanho="pequeno" 
-            variante="verde" 
-            onClick={() => alert('Clicou no Pequeno Verde!')} 
-          />
-
-          <CustomizedButton 
-            texto="Pequeno Branco" 
-            tamanho="pequeno" 
-            variante="branco" 
-            onClick={() => alert('Clicou no Pequeno Branco!')} 
-          />
-
-          <CustomizedButton 
-            texto="Grande Verde" 
-            tamanho="grande" 
-            variante="verde" 
-            onClick={() => alert('Clicou no Grande Verde!')} 
-          />
-
-          <CustomizedButton 
-            texto="Grande Branco" 
-            tamanho="grande" 
-            variante="branco" 
-            onClick={() => alert('Clicou no Grande Branco!')} 
-          />
-
-          <CustomizedButton 
-            texto="Estilo Texto" 
-            variante="texto" 
-            onClick={() => alert('Clicou no Estilo Texto!')} 
-          />
-        </div>
-      </section>
-
     </div>
   );
 }
@@ -151,10 +99,13 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<CatalogPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/scan" element={<ScanPage />} />
         <Route path="/results" element={<ResultPage />} />
-        <Route path="/availability" element={<StoreAvailabilityPage />} /> {/* 👈 Rota para o fluxo de disponibilidade */}
+        <Route path="/availability" element={<StoreAvailabilityPage />} />
+        <Route path="/store-map" element={<StoreMapPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} /> {/* 👈 Rota para o fluxo de pagamento e caixa */}
       </Routes>
     </Router>
   );

@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import BackButton from '../components/BackButton/BackButton';
 import BotaoCustomizado from '../components/CustomizedButton/CustomizedButton';
 
-// Importando as imagens locais
 import estanteImg from '../assets/estantetomneutro.png';
 import quadroImg from '../assets/quadrosneutros.png';
 
@@ -11,19 +10,21 @@ export default function StoreAvailabilityPage() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const [estadoEstoque, setEstadoEstoque] = useState('disponivel');
+  const [estadoEstoque, setEstadoEstoque] = useState('baixo');
   const [produtoAtual, setProdutoAtual] = useState({
     nome: 'Prateleira industrial preta',
     preco: 349.00,
     imagem: estanteImg
   });
 
+  // Estado para controlar o pop-up do Google Maps
+  const [mostrarModalMaps, setMostrarModalMaps] = useState(false);
+  const [contadorMaps, setContadorMaps] = useState(5);
+
   useEffect(() => {
-    // Identifica qual produto foi selecionado na página de resultados através do state
     const produtoId = location.state?.produtoId;
 
-    if (produtoId === 1) {
-      // Prateleira -> Estoque Baixo
+    if (produtoId === 1 || !produtoId) {
       setEstadoEstoque('baixo');
       setProdutoAtual({
         nome: 'Prateleira industrial preta',
@@ -31,7 +32,6 @@ export default function StoreAvailabilityPage() {
         imagem: estanteImg
       });
     } else if (produtoId === 2) {
-      // Luminária -> Indisponível
       setEstadoEstoque('indisponivel');
       setProdutoAtual({
         nome: 'Luminária pendente de metal',
@@ -39,7 +39,6 @@ export default function StoreAvailabilityPage() {
         imagem: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=200&q=80'
       });
     } else if (produtoId === 3) {
-      // Quadro -> Disponível
       setEstadoEstoque('disponivel');
       setProdutoAtual({
         nome: 'Quadro em tons neutros',
@@ -48,6 +47,26 @@ export default function StoreAvailabilityPage() {
       });
     }
   }, [location.state]);
+
+  // Efeito para o temporizador de 5 segundos do Google Maps
+  useEffect(() => {
+    let timer;
+    if (mostrarModalMaps && contadorMaps > 0) {
+      timer = setInterval(() => {
+        setContadorMaps(prev => prev - 1);
+      }, 1000);
+    } else if (contadorMaps === 0 && mostrarModalMaps) {
+      // Após 5 segundos, fecha o pop-up e vai para a Home indicando que a reserva foi feita
+      setMostrarModalMaps(false);
+      navigate('/', { state: { reservaRealizada: true } });
+    }
+    return () => clearInterval(timer);
+  }, [mostrarModalMaps, contadorMaps, navigate]);
+
+  const handleAbrirGoogleMaps = () => {
+    setContadorMaps(5);
+    setMostrarModalMaps(true);
+  };
 
   return (
     <div style={{
@@ -60,7 +79,6 @@ export default function StoreAvailabilityPage() {
       fontFamily: 'Poppins, sans-serif'
     }}>
       
-      {/* Moldura do Telemóvel */}
       <div style={{
         width: '100%',
         maxWidth: '380px',
@@ -78,7 +96,6 @@ export default function StoreAvailabilityPage() {
         boxSizing: 'border-box'
       }}>
 
-        {/* Topo: Voltar e Favorito */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <BackButton onClick={() => navigate('/results')} />
           <button style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px' }}>
@@ -86,10 +103,8 @@ export default function StoreAvailabilityPage() {
           </button>
         </div>
 
-        {/* Conteúdo do Produto */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '10px' }}>
           
-          {/* Imagem do Produto */}
           <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', backgroundColor: '#fff', height: '140px' }}>
             <img src={produtoAtual.imagem} alt={produtoAtual.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
@@ -102,136 +117,73 @@ export default function StoreAvailabilityPage() {
             R$ {produtoAtual.preco.toFixed(2).replace('.', ',')}
           </div>
 
-          {/* ESTADO INDISPONÍVEL: Aviso de Sem Estoque Geral */}
-          {estadoEstoque === 'indisponivel' && (
-            <div style={{ backgroundColor: '#FADBD8', color: '#78281F', padding: '8px 12px', borderRadius: '10px', fontSize: '11px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span>⚠️</span> Sem estoque nas lojas perto de você.
-            </div>
-          )}
-
           <div style={{ fontSize: '11px', color: '#666', fontWeight: '500', marginTop: '4px' }}>
             Disponibilidade em loja
           </div>
 
-          {/* BLOCOS DE LOJAS BASEADOS NO ESTADO DO PRODUTO */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ backgroundColor: '#FDF2E9', border: '1px solid #F5B041', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '700', color: '#7E5109' }}>Loja Pinheiros</div>
+                <div style={{ fontSize: '10px', color: '#B9770E', marginTop: '2px' }}>⏱️ Últimas 3 unidades</div>
+              </div>
+              <span style={{ backgroundColor: '#D4AC0D', color: '#fff', fontSize: '9px', fontWeight: '600', padding: '3px 8px', borderRadius: '6px' }}>Corredor 5[cite: 1]</span>
+            </div>
             
-            {/* QUADRO (Disponível) */}
-            {estadoEstoque === 'disponivel' && (
-              <>
-                <div style={{ backgroundColor: '#E0F2F1', border: '1px solid #80CBC4', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '700', color: '#004D40' }}>Loja Pinheiros</div>
-                    <div style={{ fontSize: '10px', color: '#00695C', marginTop: '2px' }}>✓ 12 unidades disponíveis</div>
-                  </div>
-                  <span style={{ backgroundColor: '#00695C', color: '#fff', fontSize: '9px', fontWeight: '600', padding: '3px 8px', borderRadius: '6px' }}>Corredor 5</span>
-                </div>
-                <div style={{ backgroundColor: '#fff', border: '1px solid #E0DBB0', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '600', color: '#333' }}>Loja Ibirapuera</div>
-                    <div style={{ fontSize: '10px', color: '#C0392B', marginTop: '2px' }}>✕ Indisponível</div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* PRATELEIRA (Estoque Baixo) */}
-            {estadoEstoque === 'baixo' && (
-              <>
-                <div style={{ backgroundColor: '#FDF2E9', border: '1px solid #F5B041', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '700', color: '#7E5109' }}>Loja Pinheiros</div>
-                    <div style={{ fontSize: '10px', color: '#B9770E', marginTop: '2px' }}>⏱️ Últimas 3 unidades</div>
-                  </div>
-                  <span style={{ backgroundColor: '#D4AC0D', color: '#fff', fontSize: '9px', fontWeight: '600', padding: '3px 8px', borderRadius: '6px' }}>Corredor 5</span>
-                </div>
-                <div style={{ backgroundColor: '#FEF9E7', padding: '8px 12px', borderRadius: '10px', fontSize: '10px', color: '#7D6608' }}>
-                  🔒 Poucas unidades. Reserve por 2 horas e retire sem fila.
-                </div>
-                <div style={{ backgroundColor: '#fff', border: '1px solid #E0DBB0', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '600', color: '#333' }}>Loja Ibirapuera</div>
-                    <div style={{ fontSize: '10px', color: '#C0392B', marginTop: '2px' }}>✕ Indisponível</div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* LUMINÁRIA (Indisponível) */}
-            {estadoEstoque === 'indisponivel' && (
-              <>
-                <div style={{ backgroundColor: '#fff', border: '1px solid #E0DBB0', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '600', color: '#333' }}>Loja Pinheiros</div>
-                    <div style={{ fontSize: '10px', color: '#C0392B', marginTop: '2px' }}>✕ Indisponível</div>
-                  </div>
-                </div>
-                <div style={{ backgroundColor: '#fff', border: '1px solid #E0DBB0', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '600', color: '#333' }}>Loja Ibirapuera</div>
-                    <div style={{ fontSize: '10px', color: '#C0392B', marginTop: '2px' }}>✕ Indisponível</div>
-                  </div>
-                </div>
-                <div style={{ backgroundColor: '#fff', border: '1px solid #E0DBB0', borderRadius: '12px', padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '12px', fontWeight: '600', color: '#333' }}>Loja Morumbi</div>
-                    <div style={{ fontSize: '10px', color: '#C0392B', marginTop: '2px' }}>✕ Indisponível</div>
-                  </div>
-                </div>
-              </>
-            )}
-
+            <div style={{ backgroundColor: '#FEF9E7', padding: '8px 12px', borderRadius: '10px', fontSize: '10px', color: '#7D6608' }}>
+              🔒 Poucas unidades. Reserve por 2 horas e retire sem fila[cite: 1].
+            </div>
           </div>
 
         </div>
 
-        {/* Botões de Ação na Base */}
+        {/* Botões solicitados para a prateleira */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
-          {estadoEstoque === 'disponivel' && (
-            <BotaoCustomizado 
-              texto="Ver na loja de Pinheiros" 
-              tamanho="grande" 
-              variante="verde" 
-              onClick={() => alert('Abrindo detalhes da loja Pinheiros...')} 
-            />
-          )}
-
-          {estadoEstoque === 'baixo' && (
-            <>
-              <BotaoCustomizado 
-                texto="Reservar por 2 horas" 
-                tamanho="grande" 
-                variante="verde" 
-                onClick={() => alert('Produto reservado com sucesso!')} 
-              />
-              <BotaoCustomizado 
-                texto="Ver na loja de Pinheiros" 
-                tamanho="grande" 
-                variante="branco" 
-                onClick={() => alert('Abrindo detalhes da loja...')} 
-              />
-            </>
-          )}
-
-          {estadoEstoque === 'indisponivel' && (
-            <>
-              <BotaoCustomizado 
-                texto="Avisar quando chegar" 
-                tamanho="grande" 
-                variante="verde" 
-                onClick={() => alert('Alerta de reposição ativado!')} 
-              />
-              <BotaoCustomizado 
-                texto="Buscar em lojas até 50 km" 
-                tamanho="grande" 
-                variante="branco" 
-                onClick={() => alert('Buscando em outras localidades...')} 
-              />
-            </>
-          )}
+          <BotaoCustomizado 
+            texto="Reservar por 2 horas" 
+            tamanho="grande" 
+            variante="verde" 
+            onClick={() => {
+              alert('Produto reservado com sucesso por 2 horas!');
+              navigate('/', { state: { reservaRealizada: true } });
+            }} 
+          />
+          <BotaoCustomizado 
+            texto="Localização da Loja de Pinheiros" 
+            tamanho="grande" 
+            variante="branco" 
+            onClick={handleAbrirGoogleMaps} 
+          />
         </div>
 
-        {/* Indicador inferior */}
+        {/* MODAL / POP-UP DO GOOGLE MAPS (Simulação por 5 segundos) */}
+        {mostrarModalMaps && (
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 20,
+            padding: '24px',
+            textAlign: 'center',
+            color: '#fff'
+          }}>
+            <div style={{ fontSize: '40px', marginBottom: '12px' }}>🗺️</div>
+            <h3 style={{ fontSize: '18px', margin: '0 0 8px 0', fontWeight: '700' }}>
+              Abrindo Google Maps...
+            </h3>
+            <p style={{ fontSize: '12px', color: '#ddd', margin: '0 0 20px 0', lineHeight: '1.4' }}>
+              Traçando rota para a <b>Leroy Merlin - Loja Pinheiros</b>.
+            </p>
+            <div style={{ fontSize: '13px', backgroundColor: 'rgba(255,255,255,0.2)', padding: '6px 14px', borderRadius: '20px' }}>
+              Retornando em <b>{contadorMaps}s</b>...
+            </div>
+          </div>
+        )}
+
         <div style={{ width: '80px', height: '4px', backgroundColor: '#ccc', borderRadius: '2px', margin: '8px auto 0 auto' }}></div>
       </div>
 
