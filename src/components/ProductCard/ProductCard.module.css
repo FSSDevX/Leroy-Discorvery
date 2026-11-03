@@ -1,77 +1,87 @@
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  border: 1.5px solid #E0DBB0;
-  border-radius: 16px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  width: 100%;
-  max-width: 450px;
-  box-sizing: border-box;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.infoContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.imagem {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.detalhes {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.titulo {
-  margin: 0 0 0.2rem 0;
+.sectionTitle {
+  color: #0A3323;
   font-size: 1rem;
-  color: #0b3c3c;
   font-weight: 600;
-  line-height: 1.3;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
 }
 
-.preco {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #0b3c3c;
-  margin-bottom: 4px;
+.sectionGroup {
+  width: 100%;
 }
 
-/* Botão do coração sem background ou hover acinzentado */
-.favoriteButton {
-  background: none;
-  border: none;
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #E0DBB0;
+  background-color: #FAFAFA;
+  color: #0A3323;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.chipSelecionado {
+  background-color: #0A3323;
+  color: #FFFFFF;
+  border-color: #0A3323;
+}
+
+.iconContainerSuccess {
+  width: 70px;
+  height: 70px;
+  background-color: #E6F4EA;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1.2rem;
 }
 
-.heartIcon {
-  color: #0b3c3c;
-  transition: transform 0.2s ease, color 0.2s ease;
+.summaryCard {
+  width: 100%;
+  background-color: #FAFAFA;
+  border: 1px solid #E0DBB0;
+  border-radius: 12px;
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: column;
 }
 
-.favoriteButton:active .heartIcon {
-  transform: scale(0.85);
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #EAE5C5;
+  font-size: 0.88rem;
 }
 
-.favorito {
-  color: #e63946;
+.summaryLabel {
+  color: #666;
+}
+
+.summaryValueBold {
+  color: #0A3323;
+  font-weight: 600;
+}
+
+.summaryValueActive {
+  color: #2E7D32;
+  font-weight: 600;
+}
+
+.summaryValueMuted {
+  color: #666;
 }

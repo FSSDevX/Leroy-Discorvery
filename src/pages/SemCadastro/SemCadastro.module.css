@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+  max-width: 440px;
+  min-height: 520px; /* Garante uma altura mínima para permitir a distribuição vertical */
+  background: #F4F3EA;
+  border: 1px solid #D9D8C8;
+  border-radius: 28px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 20px rgba(10, 51, 35, 0.05);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui o conteúdo topo/base equilibradamente */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: #0A3323;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: #555555;
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.featuresCard {
+  background-color: #FFFFFF;
+  border: 1.5px solid #D9D8C8;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.95rem;
+  color: #0A3323;
+  font-weight: 500;
+}
+
+.disabledText {
+  color: #777777;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente caso os botões tenham largura menor */
+  width: 100%;
+  gap: 12px;
+  margin-top: 16px;
+}

@@ -1,0 +1,203 @@
+.container {
+  width: 100%;
+  max-width: 440px; /* Mantém o formato de cartão centralizado */
+  background-color: #F4F3EA;
+  border: 1px solid #D9D8C8;
+  border-radius: 28px;
+  padding: 24px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(10, 51, 35, 0.05);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: #0A3323;
+  margin-bottom: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 650;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #0A3323;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 2px solid #E0DBB0;
+  background-color: #FAFAFA;
+  transition: border-color 0.2s ease;
+}
+
+.inputContainerValid {
+  border-color: #0A3323;
+}
+
+.inputContainerInvalid {
+  border-color: #D9534F;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  color: #333;
+}
+
+.eyeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+}
+
+.errorText {
+  font-size: 0.78rem;
+  color: #D9534F;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.passwordCriteria {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.criteriaItemValid {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #0A3323;
+}
+
+.criteriaItemInvalid {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #E0DBB0;
+  margin: 0.5rem 0;
+}
+
+.termsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alertBox {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background-color: #EBF3F9;
+  border-radius: 12px;
+  align-items: flex-start;
+}
+
+.alertText {
+  font-size: 0.8rem;
+  color: #0A3323;
+  line-height: 1.4;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkboxBox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid #CCC;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.checkboxBoxChecked {
+  border-color: #0A3323;
+  background-color: #0A3323;
+}
+
+.checkboxLabel {
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.privacyLink {
+  color: #0A3323;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.submitButton {
+  margin-top: 0.5rem;
+  background-color: #0A3323;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:disabled {
+  background-color: #C2D0CB;
+  cursor: not-allowed;
+}
+
+.submitButton:not(:disabled):hover {
+  background-color: #134e38;
+}

@@ -1,0 +1,282 @@
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.iconContainer {
+  width: 80px;
+  height: 80px;
+  background-color: #F7F4D5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: #0A3323;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.subtitle {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0A3323;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.alertBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #FCF8E8;
+  border: 1px solid #EEDE9B;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-size: 0.82rem;
+  color: #5A4A00;
+}
+
+.inputGroupContainer {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0A3323;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid #0A3323;
+  background-color: #FAFAFA;
+}
+
+.inputField {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  color: #333;
+}
+
+.inputHelp {
+  font-size: 0.78rem;
+  color: #666;
+}
+
+.listLojas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.cardLoja {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid #E0DBB0;
+  background-color: #FAFAFA;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.cardLojaSelecionada {
+  border-color: #0A3323;
+  background-color: #F4F8F6;
+}
+
+.infoLoja {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nomeLoja {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0A3323;
+}
+
+.statusLoja {
+  font-size: 0.78rem;
+  color: #666;
+}
+
+.radioBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #CCC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.radioBoxChecked {
+  border-color: #0A3323;
+  background-color: #0A3323;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.textActionLink {
+  background: none;
+  border: none;
+  color: #0A3323;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.textActionLink:hover {
+  text-decoration: underline;
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adiciona um espaço de 10px entre cada botão */
+  margin-bottom: 0.5rem;
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.chip {
+  height: 38px;
+  gap: 6px;
+  opacity: 1;
+  border-radius: 20px;
+  border-width: 1px;
+  padding: 9px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  
+  /* Impede que o texto quebre para a linha de baixo */
+  white-space: nowrap; 
+
+  /* Estado não selecionado (tamanho fixo igual ao selecionado) */
+  min-width: 108px; 
+  background: #FFFFFF;
+  border: 1px solid #D9D8C8;
+  color: #0A3323;
+}
+
+.chipSelecionado {
+  /* Estado selecionado (mesmo tamanho do não selecionado) */
+  min-width: 108px;
+  background: #12372A;
+  border: 1px solid #12372A;
+  color: #FFFFFF;
+}
+
+/* Card de Resumo (Loja, Câmara, Avisos) */
+.summaryCard {
+  width: 100%;
+  background-color: #FFFFFF; /* Fundo branco do card */
+  border: 1px solid #E0DBB0; /* Borda suave no tom do design system */
+  border-radius: 16px; /* Cantos bem arredondados */
+  padding: 8px 18px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #F0ECE1; /* Linha divisória subtil */
+  font-size: 0.9rem;
+}
+
+.summaryRow:last-child {
+  border-bottom: none; /* Remove a linha do último item */
+}
+
+.summaryLabel {
+  color: #666666;
+  font-weight: 400;
+}
+
+.summaryValueBold {
+  color: #0A3323;
+  font-weight: 600;
+}
+
+.summaryValueActive {
+  color: #12372A; /* Tom de verde ativo */
+  font-weight: 600;
+}
+
+.summaryValueMuted {
+  color: #777777;
+  font-weight: 500;
+}
